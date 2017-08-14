@@ -63,7 +63,7 @@ public class Gun : MonoBehaviour {
 
 	public void Shoot () {
 		if (!gunShooting) {
-			GetActiveBullet().SetBulletActive(myTransform.position,
+			GetActiveBullet().SetBulletActive(myTransform,
 			                                  bulletForce);
 			gunShooting = true;
 		}

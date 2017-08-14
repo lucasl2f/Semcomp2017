@@ -8,28 +8,24 @@ public class Bullet : MonoBehaviour {
 
 	float force;
 	bool active;
-	Vector3 myPosition;
 	Transform myTransform, myParent;
 
 	void Awake () {
 		myTransform = gameObject.transform;
-		myPosition = myTransform.position;
 		myParent = myTransform.parent;
 		ResetBullet();
 	}
 
 	public void ResetBullet () {
 		active = false;
-		myPosition = Vector3.zero;
-		myTransform.position = myPosition;
+		myTransform.position = Vector3.zero;
 		gameObject.SetActive(false);
-		//myTransform.SetParent(myParent);
 	}
 
-	public void SetBulletActive (Vector3 pos, float bulletForce) {
+	public void SetBulletActive (Transform gunTransform, float bulletForce) {
 		active = true;
-		myPosition = pos;
-		myTransform.position = myPosition;
+		myTransform.position = gunTransform.position;
+		myTransform.rotation = gunTransform.rotation;
 		force = bulletForce;
 		gameObject.SetActive(true);
 		myTransform.SetParent(GameController.instance.ShotsParent);
@@ -37,8 +33,7 @@ public class Bullet : MonoBehaviour {
 
 	void Update () {
 		if (active) {
-			myPosition.y += force;
-			myTransform.position = myPosition;
+			myTransform.position += myTransform.up * force;
 		}
 	}
 
@@ -47,7 +42,6 @@ public class Bullet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other) {
-		Debug.Log(other.tag);
 		if (!enemyShoot) {
 			if (other.CompareTag("Enemy")) {
 				other.GetComponentInParent<Enemy>().DestroyEnemy();
