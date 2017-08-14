@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour {
 	Transform myTransform;
 
 	bool gunShooting;
-	float cooldownTemp;
+	float cooldownTemp, cooldownValue;
 
 	[SerializeField]
 	GameObject BulletObj;
@@ -53,7 +53,7 @@ public class Gun : MonoBehaviour {
 
 			if (gunShooting) {
 				cooldownTemp += Time.deltaTime;
-				if (cooldownTemp > cooldown) {
+				if (cooldownTemp > cooldownValue) {
 					gunShooting = false;
 					cooldownTemp = 0;
 				}
@@ -66,6 +66,12 @@ public class Gun : MonoBehaviour {
 			GetActiveBullet().SetBulletActive(myTransform,
 			                                  bulletForce);
 			gunShooting = true;
+
+			if (!enemyGun) { //Player
+				cooldownValue = cooldown;
+			} else { //Enemy
+				cooldownValue = Random.Range(0.1f, cooldown);
+			}
 		}
 	}
 
