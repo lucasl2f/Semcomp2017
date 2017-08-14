@@ -50,16 +50,19 @@ public class Bullet : MonoBehaviour {
 		Debug.Log(other.tag);
 		if (!enemyShoot) {
 			if (other.CompareTag("Enemy")) {
-				Debug.Log("Hit enemy");
 				other.GetComponentInParent<Enemy>().DestroyEnemy();
 				ResetBullet();
 			}
 		} else {
 			if (other.CompareTag("Player")) {
-				Debug.Log("Hit player");
 				GameController.instance.LoseLife();
 				ResetBullet();
-			}	
+			}
+
+			if (other.CompareTag("Bullet")) {
+				other.GetComponent<Bullet>().ResetBullet();
+				ResetBullet();
+			}
 		}
 	}
 }

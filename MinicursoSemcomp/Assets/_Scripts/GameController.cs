@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField]
 	float positionXTemp;
 	[SerializeField]
-	TextMesh scoreText, playerLifeText;
+	TextMesh scoreText, playerLifeText, gameOverTotalScore;
 
 	bool gameOver, _gameStart;
 	int i, score, enemyIndex, lastEnemySpawned, playerLife = 3;
@@ -119,6 +119,7 @@ public class GameController : MonoBehaviour {
 	public void GameOver () {
 		_gameStart = false;
 		gameOver = true;
+		gameOverTotalScore.text = "YOUR SCORE: " + score.ToString();
 		GameOverScreen.SetActive(true);
 		HudTexts.SetActive(false);
 		PlayerObj.SetActive(false);
