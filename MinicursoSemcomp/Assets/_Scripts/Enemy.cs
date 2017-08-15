@@ -9,9 +9,11 @@ public class Enemy : MonoBehaviour {
 	bool active;
 	//Vector3 myPosition;
 	Transform myTransform;
+	AudioSource enemyExplosion;
 
 	void Awake () {
 		myTransform = gameObject.transform;
+		enemyExplosion = GetComponent<AudioSource>();
 		ResetEnemy();
 	}
 
@@ -43,6 +45,7 @@ public class Enemy : MonoBehaviour {
 
 	public void DestroyEnemy () {
 		GameController.instance.IncreaseScore();
+		GameController.instance.PlayEnemyExplosion();
 		ResetEnemy();
 	}
 }

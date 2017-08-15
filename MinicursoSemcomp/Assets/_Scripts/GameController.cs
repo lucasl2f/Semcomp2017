@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour {
 	Vector3 positionTemp;
 	List <GameObject> enemiesList = new List<GameObject>();
 	Enemy currentEnemy;
-	AudioSource playerExplosion;
+	AudioSource audioChannel;
 
 	public static GameController instance;
 
@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour {
 		GameStartScreen.SetActive(true);
 		GameOverScreen.SetActive(false);
 		HudTexts.SetActive(false);
-		playerExplosion = GetComponent<AudioSource>();
+		audioChannel = GetComponent<AudioSource>();
 	}
 
 	void Update () {
@@ -120,14 +120,14 @@ public class GameController : MonoBehaviour {
 	public void GameOver () {
 		_gameStart = false;
 		gameOver = true;
-
 		//Score
 		gameOverTotalScore.text = "Score: " + score.ToString();
+
 		if (PlayerPrefs.GetInt("Highscore", 0) < score) {
 			PlayerPrefs.SetInt("Highscore", score);	
 		}
-		gameOverHighscore.text = "Highscore: " + PlayerPrefs.GetInt("Highscore",
-		                                                            score).ToString();
+
+		gameOverHighscore.text = "Highscore: " + PlayerPrefs.GetInt("Highscore", score).ToString();
 
 		GameOverScreen.SetActive(true);
 		HudTexts.SetActive(false);
@@ -138,8 +138,6 @@ public class GameController : MonoBehaviour {
 		for (i = 0; i < enemyPooledQuantity; i++) {
 			Destroy(enemiesList[i]);
 		}
-
-		playerExplosion.Play();
 	}
 
 	void DestroyShots () {
@@ -147,4 +145,17 @@ public class GameController : MonoBehaviour {
 			Destroy(_ShotsParent);
 		}
 	}
+
+	public void PlayPlayerHit () {
+		audioChannel.volume = 1f;
+		audioChannel.pitch = 1.2f;
+		audioChannel.Play();
+	}
+
+	public void PlayEnemyExplosion () {
+		audioChannel.volume = 0.5f;
+		audioChannel.pitch = 0.5f;
+		audioChannel.Play();
+	}
+
 }

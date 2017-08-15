@@ -41,6 +41,7 @@ public class Bullet : MonoBehaviour {
 
 			if (other.transform.parent.name == "Player") {
 				GameController.instance.LoseLife();
+				GameController.instance.PlayPlayerHit();
 				ResetBullet();
 			}
 
