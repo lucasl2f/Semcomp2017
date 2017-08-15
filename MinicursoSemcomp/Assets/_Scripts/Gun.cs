@@ -31,14 +31,6 @@ public class Gun : MonoBehaviour {
 		myTransform = gameObject.transform;
 	}
 
-	void Populate () {
-		bulletsArsenal.Clear();
-		for (i = 0; i < pooledQuantity; i++) {
-			BulletTemp = (GameObject)Instantiate(BulletObj, gameObject.transform);
-			bulletsArsenal.Add(BulletTemp);
-		}
-	}
-
 	void Update () {
 		if (GameController.instance.gameStart) {
 			if (!enemyGun) { //PLAYER
@@ -58,6 +50,16 @@ public class Gun : MonoBehaviour {
 			}
 		}
 	}
+
+	void Populate () {
+		bulletsArsenal.Clear();
+		for (i = 0; i < pooledQuantity; i++) {
+			BulletTemp = (GameObject)Instantiate(BulletObj, gameObject.transform);
+			bulletsArsenal.Add(BulletTemp);
+		}
+	}
+
+
 
 	public void Shoot () {
 		if (!gunShooting) {

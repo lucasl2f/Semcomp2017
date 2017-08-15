@@ -15,6 +15,16 @@ public class Enemy : MonoBehaviour {
 		ResetEnemy();
 	}
 
+	void Update () {
+		if (active) {
+			myTransform.Translate(Vector3.up * speed);
+		}
+	}
+
+	void OnBecameInvisible () {
+		ResetEnemy();
+	}
+
 	public void ResetEnemy () {
 		active = false;
 		myTransform.position = Vector3.zero;
@@ -30,11 +40,5 @@ public class Enemy : MonoBehaviour {
 	public void DestroyEnemy () {
 		GameController.instance.IncreaseScore();
 		ResetEnemy();
-	}
-
-	void Update () {
-		if (active) {
-			myTransform.Translate(Vector3.up * speed);
-		}
 	}
 }

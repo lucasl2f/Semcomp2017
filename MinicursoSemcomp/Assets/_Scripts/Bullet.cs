@@ -16,6 +16,38 @@ public class Bullet : MonoBehaviour {
 		ResetBullet();
 	}
 
+	void Update () {
+		if (active) {
+			myTransform.Translate(Vector3.up * force);
+		}
+	}
+
+	void OnBecameInvisible () {
+		ResetBullet();
+	}
+
+	void OnTriggerEnter (Collider other) {
+		//Debug.Log(other.gameObject.name);
+		if (!enemyShoot) {
+			if (other.GetComponentInParent<Enemy>()) {
+				other.GetComponentInParent<Enemy>().DestroyEnemy();
+				ResetBullet();
+			}
+		} else {
+			if (other.GetComponent<Bullet>()) {
+				other.GetComponent<Bullet>().ResetBullet();
+				ResetBullet();
+			}
+
+			if (other.transform.parent.name == "Player") {
+				GameController.instance.LoseLife();
+				ResetBullet();
+			}
+
+
+		}
+	}
+
 	public void ResetBullet () {
 		active = false;
 		myTransform.position = Vector3.zero;
@@ -29,34 +61,5 @@ public class Bullet : MonoBehaviour {
 		force = bulletForce;
 		gameObject.SetActive(true);
 		myTransform.SetParent(GameController.instance.ShotsParent);
-	}
-
-	void Update () {
-		if (active) {
-			myTransform.Translate(Vector3.up * force);
-		}
-	}
-
-	void OnBecameInvisible () {
-		ResetBullet();
-	}
-
-	void OnTriggerEnter (Collider other) {
-		if (!enemyShoot) {
-			if (other.CompareTag("Enemy")) {
-				other.GetComponentInParent<Enemy>().DestroyEnemy();
-				ResetBullet();
-			}
-		} else {
-			if (other.CompareTag("Player")) {
-				GameController.instance.LoseLife();
-				ResetBullet();
-			}
-
-			if (other.CompareTag("Bullet")) {
-				other.GetComponent<Bullet>().ResetBullet();
-				ResetBullet();
-			}
-		}
 	}
 }
