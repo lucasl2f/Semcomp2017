@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyUp(KeyCode.Mouse0)) {
+		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyUp(KeyCode.Mouse1)) {
 			if (!_gameStart && !gameOver) {
 				GameStart();
 			}
