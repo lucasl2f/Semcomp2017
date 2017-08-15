@@ -7,26 +7,23 @@ public class Enemy : MonoBehaviour {
 	float speed = 0.1f;
 
 	bool active;
-	Vector3 myPosition;
+	//Vector3 myPosition;
 	Transform myTransform;
 
 	void Awake () {
 		myTransform = gameObject.transform;
-		myPosition = myTransform.position;
 		ResetEnemy();
 	}
 
 	public void ResetEnemy () {
 		active = false;
-		myPosition = Vector3.zero;
-		myTransform.position = myPosition;
+		myTransform.position = Vector3.zero;
 		gameObject.SetActive(false);
 	}
 
 	public void SetEnemyActive (Vector3 newPosition) {
 		active = true;
-		myPosition = newPosition;
-		myTransform.localPosition = myPosition;
+		myTransform.localPosition = newPosition;
 		gameObject.SetActive(true);
 	}
 
@@ -37,8 +34,7 @@ public class Enemy : MonoBehaviour {
 
 	void Update () {
 		if (active) {
-			myPosition.y += speed;
-			myTransform.localPosition = myPosition;
+			myTransform.Translate(Vector3.up * speed);
 		}
 	}
 }

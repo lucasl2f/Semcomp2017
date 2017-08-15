@@ -45,8 +45,6 @@ public class Gun : MonoBehaviour {
 				if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
 					Shoot();	
 				}
-
-				
 			} else { //ENEMY
 				Shoot();
 			}

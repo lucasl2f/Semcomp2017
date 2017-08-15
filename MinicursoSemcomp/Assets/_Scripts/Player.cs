@@ -11,29 +11,21 @@ public class Player : MonoBehaviour {
 
 	void Awake () {
 		myTransform = gameObject.transform;
-		myPosition = myTransform.position;
+		//myPosition = myTransform.position;
 	}
 
 	void Update () {
 		if (GameController.instance.gameStart) {
 			if (Input.GetKey(KeyCode.A)) {
-				myPosition.x -= movementX;
-
-				if (myPosition.x < -screenLimitX) {
-					myPosition.x = -screenLimitX;
+				if (myTransform.position.x - movementX >= -screenLimitX) {
+					myTransform.Translate(-Vector3.right * movementX);
 				}
-
-				myTransform.position = myPosition;
 			}
 
 			if (Input.GetKey(KeyCode.D)) {
-				myPosition.x += movementX;
-
-				if (myPosition.x > screenLimitX) {
-					myPosition.x = screenLimitX;
+				if (myTransform.position.x - movementX <= screenLimitX) {
+					myTransform.Translate(Vector3.right * movementX);
 				}
-
-				myTransform.position = myPosition;
 			}
 		}
 	}

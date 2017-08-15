@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour {
 
 	void Update () {
 		if (active) {
-			myTransform.position += myTransform.up * force;
+			myTransform.Translate(Vector3.up * force);
 		}
 	}
 
