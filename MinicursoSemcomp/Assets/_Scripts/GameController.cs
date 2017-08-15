@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField]
 	float positionXTemp;
 	[SerializeField]
-	TextMesh scoreText, playerLifeText, gameOverTotalScore;
+	TextMesh scoreText, playerLifeText, gameOverTotalScore, gameOverHighscore;
 
 	bool gameOver, _gameStart;
 	int i, score, enemyIndex, lastEnemySpawned, playerLife = 3;
@@ -119,7 +119,15 @@ public class GameController : MonoBehaviour {
 	public void GameOver () {
 		_gameStart = false;
 		gameOver = true;
-		gameOverTotalScore.text = "YOUR SCORE: " + score.ToString();
+
+		//Score
+		gameOverTotalScore.text = "Score: " + score.ToString();
+		if (PlayerPrefs.GetInt("Highscore", 0) < score) {
+			PlayerPrefs.SetInt("Highscore", score);	
+		}
+		gameOverHighscore.text = "Highscore: " + PlayerPrefs.GetInt("Highscore",
+		                                                            score).ToString();
+
 		GameOverScreen.SetActive(true);
 		HudTexts.SetActive(false);
 		PlayerObj.SetActive(false);
