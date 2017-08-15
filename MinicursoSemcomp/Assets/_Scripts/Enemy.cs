@@ -18,6 +18,10 @@ public class Enemy : MonoBehaviour {
 	void Update () {
 		if (active) {
 			myTransform.Translate(Vector3.up * speed);
+
+			if (myTransform.position.y < -12) {
+				ResetEnemy();
+			}
 		}
 	}
 
