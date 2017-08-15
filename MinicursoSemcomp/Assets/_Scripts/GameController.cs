@@ -18,11 +18,11 @@ public class GameController : MonoBehaviour {
 	int i, score, enemyIndex, lastEnemySpawned, playerLife = 3;
 	const int enemyScore = 100;
 
-	GameObject EnemyTemp;
-	Enemy currentEnemy;
+	GameObject _ShotsParent, EnemyTemp;
 	Vector3 positionTemp;
 	List <GameObject> enemiesList = new List<GameObject>();
-	GameObject _ShotsParent;
+	Enemy currentEnemy;
+	AudioSource playerExplosion;
 
 	public static GameController instance;
 
@@ -48,6 +48,7 @@ public class GameController : MonoBehaviour {
 		GameStartScreen.SetActive(true);
 		GameOverScreen.SetActive(false);
 		HudTexts.SetActive(false);
+		playerExplosion = GetComponent<AudioSource>();
 	}
 
 	void Update () {
@@ -137,6 +138,8 @@ public class GameController : MonoBehaviour {
 		for (i = 0; i < enemyPooledQuantity; i++) {
 			Destroy(enemiesList[i]);
 		}
+
+		playerExplosion.Play();
 	}
 
 	void DestroyShots () {
