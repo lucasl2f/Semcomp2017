@@ -21,9 +21,12 @@ public class Gun : MonoBehaviour {
 	int i, activeBullet, bulletIndex;
 	GameObject BulletTemp;
 
+	AudioSource soundShot;
+
 	List <GameObject> bulletsArsenal = new List<GameObject>();
 
 	void Awake () {
+		soundShot = GetComponent<AudioSource>();
 		Populate();
 	}
 
@@ -69,6 +72,7 @@ public class Gun : MonoBehaviour {
 
 			if (!enemyGun) { //Player
 				cooldownValue = cooldown;
+				soundShot.Play();
 			} else { //Enemy
 				cooldownValue = Random.Range(0.1f, cooldown);
 			}
